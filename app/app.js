@@ -11,9 +11,14 @@ function render() {
 
   tokens.forEach((item) => {
     const li = document.createElement('li');
-    li.innerHTML = `<code>${item.token}</code> — length ${item.length}${
-      item.punctuation ? ' (includes punctuation)' : ''
-    }`;
+    const code = document.createElement('code');
+    code.textContent = item.token;
+    li.appendChild(code);
+
+    const metadata = document.createTextNode(
+      ` — length ${item.length}${item.punctuation ? ' (includes punctuation)' : ''}`
+    );
+    li.appendChild(metadata);
     tokenList.appendChild(li);
   });
 }

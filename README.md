@@ -101,7 +101,3 @@ Ship a focused prototype with:
 - Users can identify how decoding settings change model outputs.
 - Users can describe a basic agent execution loop with tools and memory.
 - Each module has clear “what is happening” and “why it matters” explanations.
-
-## Next Step
-
-Implement the Phase 1 scaffold and add the first interactive module (Tokenization Playground).

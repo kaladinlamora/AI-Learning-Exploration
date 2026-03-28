@@ -74,6 +74,7 @@ The web application is now built to the `app/` path in this repository.
 - Source files live in `src/`.
 - Build command copies the runnable static site to `app/`.
 - Open `app/index.html` directly, or serve it locally.
+- Current playground features include tokenizer modes (mixed/word/character), insight cards, preset prompts, deterministic explanation cards, and token-budget warnings for context pressure.
 
 ## Local Development
 

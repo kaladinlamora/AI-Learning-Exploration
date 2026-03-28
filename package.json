@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "node --check src/app.js && node --check src/tokenize.js && node --check scripts/build.mjs",
+    "lint": "node --check src/app.js && node --check src/tokenize.js && node --check src/explain.js && node --check scripts/build.mjs",
     "typecheck": "node -e \"console.log('No TypeScript configured yet.')\"",
     "test": "node --test",
     "build": "node scripts/build.mjs"

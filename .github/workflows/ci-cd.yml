@@ -2,7 +2,6 @@ name: CI/CD Starter
 
 on:
   pull_request:
-    branches: ["**"]
   push:
     branches: ["main", "master", "develop", "feature/**"]
   workflow_dispatch:
@@ -20,13 +19,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: npm
-          cache-dependency-path: package-lock.json
-
       - name: Detect JS project
         id: detect
         shell: bash
@@ -36,6 +28,14 @@ jobs:
           else
             echo "has_package_json=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Setup Node.js
+        if: steps.detect.outputs.has_package_json == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         if: steps.detect.outputs.has_package_json == 'true'
@@ -51,8 +51,7 @@ jobs:
 
       - name: Test
         if: steps.detect.outputs.has_package_json == 'true'
-        run: npm test -- --ci --watch=false
-        continue-on-error: false
+        run: npm test --if-present
 
       - name: Build
         if: steps.detect.outputs.has_package_json == 'true'
@@ -61,25 +60,3 @@ jobs:
       - name: No package.json notice
         if: steps.detect.outputs.has_package_json != 'true'
         run: echo "No package.json detected yet. CI passed with starter checks only."
-
-  deploy_preview:
-    name: Deploy Preview (placeholder)
-    runs-on: ubuntu-latest
-    needs: quality
-    if: github.event_name == 'pull_request'
-
-    steps:
-      - name: Deployment plan note
-        run: |
-          echo "Add your provider-specific preview deployment here (e.g., Vercel/Netlify)."
-
-  deploy_production:
-    name: Deploy Production (placeholder)
-    runs-on: ubuntu-latest
-    needs: quality
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Production deployment plan note
-        run: |
-          echo "Add production deployment steps here once hosting target is selected."

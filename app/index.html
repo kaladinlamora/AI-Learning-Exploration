@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Learning Exploration</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>AI Learning Exploration</h1>
+        <p>Interactive Tokenization Playground (MVP v0).</p>
+      </header>
+
+      <section class="panel">
+        <label for="prompt">Prompt input</label>
+        <textarea id="prompt" rows="5">Explain how tokenization works in AI models.</textarea>
+      </section>
+
+      <section class="panel">
+        <h2>Token breakdown</h2>
+        <p>Total tokens: <strong id="tokenCount">0</strong></p>
+        <ul id="tokenList"></ul>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

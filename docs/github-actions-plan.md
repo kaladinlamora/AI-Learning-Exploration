@@ -1,55 +1,34 @@
 # GitHub Actions Plan
 
-This project now includes a starter workflow at `.github/workflows/ci-cd.yml` to establish a clean CI/CD baseline before the app code is fully scaffolded.
+This project includes a starter workflow at `.github/workflows/ci-cd.yml` to keep quality checks running while the frontend is being built.
 
 ## Workflow Goals
 
 1. Run quality checks on every pull request.
 2. Verify that new code builds before merge.
-3. Provide clear hooks for preview and production deployment.
-4. Keep early workflows stable even before `package.json` exists.
+3. Keep the pipeline stable both before and after JS initialization.
 
 ## Current Pipeline
 
-### 1) Quality Job (CI)
+### Quality Job (CI)
 
 - Triggered on push, pull request, and manual dispatch.
-- Checks out code and configures Node.js 20.
-- Detects whether a JavaScript/TypeScript project has been initialized.
+- Detects whether `package.json` exists.
+- Only after detection, configures Node.js 20 with npm cache.
 - If initialized, runs:
   - `npm ci`
   - `npm run lint --if-present`
   - `npm run typecheck --if-present`
-  - `npm test -- --ci --watch=false`
+  - `npm test --if-present`
   - `npm run build --if-present`
-- If not initialized, exits with a clear informational success message.
+- If not initialized, exits with an informational success message.
 
-### 2) Deploy Preview Job (placeholder)
+## CI Failure Note (Prepared Comment)
 
-- Runs on pull requests after Quality succeeds.
-- Intended for preview URL deployment via provider integration.
-
-### 3) Deploy Production Job (placeholder)
-
-- Runs on pushes to `main` after Quality succeeds.
-- Intended for production deployment once hosting choice is finalized.
+> The CI failure happened because `actions/setup-node` with `cache: npm` ran before dependency files were guaranteed to exist. Without a lockfile (`package-lock.json`), setup failed early. The workflow now detects `package.json` first, then conditionally runs Node setup and npm caching. Test execution was also made more portable with `npm test --if-present`.
 
 ## Recommended Next Steps
 
-1. Pick a hosting provider (Vercel, Netlify, GitHub Pages, or custom cloud).
-2. Replace placeholder deploy steps with provider-specific actions and required secrets.
-3. Add status badges in `README.md` once the workflow is active.
-4. Add required status checks in repository branch protection:
-   - `Lint, Test, Build`
-5. Expand tests over time:
-   - unit tests for calculators/simulations
-   - integration tests for interactive UI flows
-   - accessibility checks
-
-## Optional Follow-ups
-
-- Add separate workflows for:
-  - dependency updates
-  - security scanning (CodeQL, npm audit)
-  - end-to-end tests (Playwright/Cypress)
-- Add environment-based deploy approvals for production releases.
+1. Reintroduce preview/production deploy jobs once hosting is selected.
+2. Add branch protection required checks for `Lint, Test, Build`.
+3. Expand automated checks with accessibility and end-to-end tests.

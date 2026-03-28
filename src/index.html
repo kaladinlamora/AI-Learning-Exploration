@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Learning Exploration</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="hero">
+        <p class="eyebrow">LLM Internals Playground</p>
+        <h1>Tokenization Explorer</h1>
+        <p>
+          Learn how text is split into tokens and why token count affects model cost, context size, and
+          behavior.
+        </p>
+      </header>
+
+      <section class="panel controls">
+        <div>
+          <label for="prompt">Prompt input</label>
+          <textarea id="prompt" rows="5">Explain how tokenization works in AI models.</textarea>
+        </div>
+        <div>
+          <label for="tokenMode">Tokenizer mode</label>
+          <select id="tokenMode">
+            <option value="mixed" selected>Mixed (word + punctuation)</option>
+            <option value="word">Word split</option>
+            <option value="character">Character split</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="panel presets">
+        <h2>Try example prompts</h2>
+        <div class="preset-buttons">
+          <button type="button" data-preset="Let's test punctuation: wow!!! Does this change token count?">Punctuation heavy</button>
+          <button type="button" data-preset="Summarize retrieval-augmented generation in 3 short bullet points.\n- Use a retriever\n- Ground answers\n- Cite sources">Instruction style</button>
+          <button type="button" data-preset="antidisestablishmentarianism tokenization is often surprising">Long words</button>
+        </div>
+      </section>
+
+      <section class="panel insights">
+        <h2>Insights</h2>
+        <p id="modeExplanation"></p>
+        <div id="budgetAlert" class="budget-alert low" role="status" aria-live="polite">
+          <strong id="budgetTitle">Low context pressure</strong>
+          <p id="budgetDetail">Estimated usage is relatively small.</p>
+        </div>
+        <div class="stats-grid">
+          <article>
+            <h3 id="tokenCount">0</h3>
+            <p>Token count</p>
+          </article>
+          <article>
+            <h3 id="uniqueCount">0</h3>
+            <p>Unique tokens</p>
+          </article>
+          <article>
+            <h3 id="avgLength">0</h3>
+            <p>Avg token length</p>
+          </article>
+          <article>
+            <h3 id="contextUsage">0</h3>
+            <p>Estimated context usage</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel explainability">
+        <h2>Deterministic explanation cards (Phase A)</h2>
+        <p>Rule-based notes explain why the current token pattern might matter in LLM and agent workflows.</p>
+        <ul id="deterministicNotes" class="notes-list"></ul>
+      </section>
+
+      <section class="panel breakdown">
+        <h2>Token breakdown</h2>
+        <ul id="tokenList" class="token-list"></ul>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

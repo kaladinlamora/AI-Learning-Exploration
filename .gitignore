@@ -1,0 +1,12 @@
+# dependencies
+node_modules/
+
+# generated artifacts
+app/
+dist/
+
+# logs
+npm-debug.log*
+
+# macOS
+.DS_Store

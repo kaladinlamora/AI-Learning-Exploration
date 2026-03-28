@@ -32,3 +32,9 @@ This project includes a starter workflow at `.github/workflows/ci-cd.yml` to kee
 1. Reintroduce preview/production deploy jobs once hosting is selected.
 2. Add branch protection required checks for `Lint, Test, Build`.
 3. Expand automated checks with accessibility and end-to-end tests.
+
+
+## Conflict resistance note
+
+- Generated frontend artifacts are no longer tracked in Git (`dist/` and legacy `app/` are gitignored).
+- CI builds artifacts from `src/` during checks, which reduces repeated merge conflicts in built files.

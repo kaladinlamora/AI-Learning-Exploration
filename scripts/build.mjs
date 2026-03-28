@@ -2,11 +2,11 @@ import { mkdir, copyFile, rm } from 'node:fs/promises';
 
 const files = ['index.html', 'app.js', 'styles.css', 'tokenize.js', 'explain.js'];
 
-await rm('dist', { recursive: true, force: true });
-await mkdir('dist', { recursive: true });
+await rm('app', { recursive: true, force: true });
+await mkdir('app', { recursive: true });
 
 for (const file of files) {
-  await copyFile(`src/${file}`, `dist/${file}`);
+  await copyFile(`src/${file}`, `app/${file}`);
 }
 
-console.log('Built static app to ./dist');
+console.log('Built static app to ./app');

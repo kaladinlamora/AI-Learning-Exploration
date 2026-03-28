@@ -76,6 +76,12 @@ The web application is built to the local `dist/` path (generated artifact).
 - Open `dist/index.html` directly, or serve it locally.
 - Current playground features include tokenizer modes (mixed/word/character), insight cards, preset prompts, deterministic explanation cards, and token-budget warnings for context pressure.
 - Generated artifacts are gitignored to reduce merge conflicts across branches.
+The web application is now built to the `app/` path in this repository.
+
+- Source files live in `src/`.
+- Build command copies the runnable static site to `app/`.
+- Open `app/index.html` directly, or serve it locally.
+- Current playground features include tokenizer modes (mixed/word/character), insight cards, preset prompts, deterministic explanation cards, and token-budget warnings for context pressure.
 
 ## Local Development
 
@@ -86,6 +92,7 @@ python3 -m http.server 4173
 ```
 
 Then open `http://localhost:4173/dist/`.
+Then open `http://localhost:4173/app/`.
 
 ## Suggested Tech Stack
 
